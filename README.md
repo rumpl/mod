@@ -1,6 +1,7 @@
 # mod
 
 ![ci](https://github.com/rumpl/mod/workflows/ci/badge.svg)
+[![codecov.io](https://codecov.io/github/rumpl/mod/coverage.svg?branch=master)](https://codecov.io/github/rumpl/mod?branch=master)
 
 A better `go mod init`.
 
