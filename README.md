@@ -10,6 +10,12 @@ This little tool will help you initialize a go project with go modules. This is 
 * creates a README file
 * initializes a git repository
 
+## Intallation
+
+```
+go get -u github.com/rumpl/mod-init
+```
+
 ## Usage
 
 ```
