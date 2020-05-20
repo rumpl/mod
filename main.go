@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -9,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/github/hub/github"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 )
@@ -138,8 +138,11 @@ func gitInit(_ string, _ string) error {
 
 func execute(args ...string) error {
 	logrus.Debugf("Executing %s", strings.Join(args, " "))
-	cmd := exec.Command(args[0], args[1:]...)
-	return cmd.Run()
+	out, err := exec.Command(args[0], args[1:]...).Output()
+	if err != nil {
+		return errors.Wrap(err, string(out))
+	}
+	return nil
 }
 
 func addFiles(repo string) error {
