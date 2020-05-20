@@ -19,6 +19,10 @@ jobs:
 
       - name: Tests
         run: make test
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./profile.out
+          fail_ci_if_error: true
 
       - name: Build
         run: make

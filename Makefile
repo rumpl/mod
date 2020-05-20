@@ -4,6 +4,6 @@ cli:
 	@go build .
 
 test:
-	@go test -cover ./...
+	@go test -coverprofile=profile.out ./...
 
 .PHONY: cli
