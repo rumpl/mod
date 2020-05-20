@@ -1,4 +1,4 @@
-# mod-init
+# mod
 
 A better `go mod init`.
 
@@ -13,16 +13,16 @@ This little tool will help you initialize a go project with go modules. This is 
 ## Intallation
 
 ```
-go get -u github.com/rumpl/mod-init
+go get -u github.com/rumpl/mod
 ```
 
 ## Usage
 
 ```
-$ mod-init awesome-project
+$ mod init awesome-project
 All done, happy hacking!
 
-$ ls -l
+$ ls -l awesome-project
 total 32
 -rw-r--r--  1 djordjelukic  staff  41 May 20 20:38 Makefile
 -rw-r--r--  1 djordjelukic  staff   7 May 20 20:38 README.md

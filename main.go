@@ -52,7 +52,7 @@ func main() {
 
 func main() {
 	app := cli.App{
-		Usage: "mod-init",
+		Usage: "mod",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "debug",
@@ -65,12 +65,17 @@ func main() {
 			}
 			return nil
 		},
-		Action: func(ctx *cli.Context) error {
-			repo := ctx.Args().First()
-			if repo == "" {
-				return errors.New("please provide a repo name")
-			}
-			return run(repo)
+		Commands: []*cli.Command{
+			{
+				Name: "init",
+				Action: func(ctx *cli.Context) error {
+					repo := ctx.Args().First()
+					if repo == "" {
+						return errors.New("please provide a repo name")
+					}
+					return run(repo)
+				},
+			},
 		},
 	}
 
@@ -81,6 +86,10 @@ func main() {
 }
 
 func run(repo string) error {
+	if _, err := os.Stat(repo); !os.IsNotExist(err) {
+		return errors.New("directory already exists")
+	}
+
 	cc := github.CurrentConfig()
 	host, err := cc.PromptForHost("github.com")
 	if err != nil {
@@ -88,6 +97,8 @@ func run(repo string) error {
 	}
 
 	inits := []initFunc{
+		mkdir,
+		chdir,
 		modInit,
 		gitInit,
 	}
@@ -108,6 +119,14 @@ func run(repo string) error {
 }
 
 type initFunc func(string, string) error
+
+func mkdir(user string, repo string) error {
+	return os.Mkdir(repo, 0755)
+}
+
+func chdir(user string, repo string) error {
+	return os.Chdir(repo)
+}
 
 func modInit(user string, repo string) error {
 	return execute("go", "mod", "init", fmt.Sprintf("github.com/%s/%s", user, repo))
