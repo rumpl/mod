@@ -91,9 +91,14 @@ func run(repo string) error {
 	}
 
 	cc := github.CurrentConfig()
-	host, err := cc.PromptForHost("github.com")
-	if err != nil {
-		return err
+	user := cc.PromptForUser("github.com")
+
+	if user == "" {
+		host, err := cc.PromptForHost("github.com")
+		if err != nil {
+			return err
+		}
+		user = host.User
 	}
 
 	inits := []initFunc{
@@ -104,12 +109,12 @@ func run(repo string) error {
 	}
 
 	for _, init := range inits {
-		if err := init(host.User, repo); err != nil {
+		if err := init(user, repo); err != nil {
 			return err
 		}
 	}
 
-	if err = addFiles(repo); err != nil {
+	if err := addFiles(repo); err != nil {
 		return err
 	}
 
