@@ -4,6 +4,9 @@ on: [push]
 
 jobs:
   ci:
+    env:
+      # Needed for tests
+      GITHUB_USER: rumpl
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
