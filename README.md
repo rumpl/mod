@@ -1,5 +1,7 @@
 # mod
 
+![ci](https://github.com/rumpl/mod/workflows/ci/badge.svg)
+
 A better `go mod init`.
 
 This little tool will help you initialize a go project with go modules. This is what it does:
