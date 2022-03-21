@@ -29,7 +29,7 @@ cov
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 # The binary
-%s
+./%s
 `
 	readme = `# %s
 `
